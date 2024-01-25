@@ -1,6 +1,7 @@
 package com.github.tvbox.osc.base;
 
 import android.os.Environment;
+import android.text.TextUtils;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -41,6 +42,9 @@ public class App extends MultiDexApplication {
     public static String burl;
     private static String dashData;
     public static ViewPump viewPump = null;
+
+    public static final String DEFAULT_URL="http://8.134.66.56:9797/";
+
 
     @Override
     public void onCreate() {
@@ -129,6 +133,11 @@ public class App extends MultiDexApplication {
         putDefault(HawkConfig.PARSE_WEBVIEW, true);          //嗅探Webview: true=系统自带, false=XWalkView
         putDefault(HawkConfig.DOH_URL, 0);                   //安全DNS: 0=关闭, 1=腾讯, 2=阿里, 3=360, 4=Google, 5=AdGuard, 6=Quad9
 
+        String result=Hawk.get(HawkConfig.API_URL);
+        //如果地址为空 则将默认的地址放进去
+        if (TextUtils.isEmpty(result)){
+            Hawk.put(HawkConfig.API_URL,DEFAULT_URL);
+        }
     }
 
     private void initLocale() {

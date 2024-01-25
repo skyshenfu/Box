@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.zty.ygcm.tv",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 20,
+      "versionName": "2.0.20240125_2020",
+      "outputFile": "新懒人TV_V2.0.20240125_2020_20_20240125.apk"
+    }
+  ],
+  "elementType": "File"
+}

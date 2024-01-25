@@ -10,11 +10,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId 'com.github.tvbox.osc.tk'
+        applicationId 'com.zty.ygcm.tv'
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0.".concat(buildTime())
+        versionCode 20
+        versionName "2.0.".concat(buildTime())
         multiDexEnabled true
         //设置room的Schema的位置
         javaCompileOptions {
@@ -50,6 +50,18 @@ android {
     
     buildFeatures {
         dataBinding = true
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 直接改名字，给闭包当中的字段赋值
+            if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+                variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+            }
+            String apkName = "新懒人TV"
+            outputFileName = apkName + "_V" + defaultConfig.versionName  + "_"+ defaultConfig.versionCode+"_"+ new Date().format("yyyyMMdd")  +".apk"
+
+        }
     }
 }
 
@@ -130,5 +142,11 @@ dependencies {
         all {
             exclude group: 'xpp3', module: 'xpp3'
         }
+    }
+}
+
+tasks.whenTaskAdded {task ->
+    if (task.name.contains("ReleaseApkListingFileRedirect")) { // 过滤release
+        task.enabled = false
     }
 }
